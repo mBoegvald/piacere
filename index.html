@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .mobile_nav {
+        display: flex;
+
+
+    }
+
+    .nav_logo {
+        width: 20vw;
+
+    }
+
+    .burger {
+        cursor: pointer;
+        border: none;
+        transition: 0.4s;
+        -webkit-appearance: none;
+        background-color: transparent;
+    }
+
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 20px;
+        height: 3px;
+        background-color: #C3922E;
+        margin: 4px 0;
+        transition: 0.4s;
+        border-radius: 30%;
+    }
+
+    .hero {
+        background: url(img/splashbillede.png) no-repeat 50%;
+        background-size: cover;
+        padding-top: 0;
+        position: relative;
+        text-align: center;
+        height: 100vh;
+        width: 100%;
+
+    }
+
+    .hero_logo {
+        margin: auto;
+        width: 20vw;
+
+
+    }
+
+    .hero_logo img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        padding-top: 40vh;
+
+    }
+
+    .tekst {
+        width: 100%;
+
+    }
+
+    h1 {
+        font-family: 'franklin-gothic-urw-comp', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        max-width: 300px;
+        margin: 20px auto;
+
+    }
+
+</style>
+
+<body>
+    <nav class="mobile_nav">
+
+
+
+        <a href="" class="nav_logo">
+        </a>
+        <button class="burger">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </button>
+
+
+
+        <ul class="mobile_nav_menu">
+            <li><a href="#">Om</a></li>
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+        <div id="home" class="hero">
+            <div class="container">
+                <div class="hero_logo">
+                    <img src="img/nytLogoStort.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div id="om">
+
+            <div class="tekst">
+                <h1>Om il piacere</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi quas quaerat saepe possimus fugit, recusandae, magni corporis quo veritatis vero delectus necessitatibus incidunt aperiam ab sapiente ratione tempora ipsum voluptatem.</p><br>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo modi, eveniet animi harum a iusto assumenda esse eligendi quia similique quibusdam ullam nemo, temporibus fugiat consequatur voluptate mollitia! Sed, fugit.</p><br>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo modi, eveniet animi harum a iusto assumenda esse eligendi quia similique quibusdam ullam nemo, temporibus fugiat consequatur voluptate mollitia! Sed, fugit.</p>
+
+            </div>
+
+
+        </div>
+        <div class="retter">
+
+        </div>
+    </div>
+
+    <script></script>
+</body>
+
+</html>
