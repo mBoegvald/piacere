@@ -72,6 +72,29 @@
 
     }
 
+    article {
+        padding: 1em;
+        background-color: white;
+    }
+
+    .data_container article img {
+        width: 100%;
+    }
+
+    .data_container {
+        margin: 0 auto;
+        display: grid;
+    }
+
+    .menu_h2 {
+        text-transform: capitalize;
+    }
+
+    .menu_item {
+        border-radius: 5px;
+        background: #FFF;
+    }
+
     h1 {
         font-family: 'franklin-gothic-urw-comp', sans-serif;
         font-style: normal;
@@ -79,6 +102,13 @@
         max-width: 300px;
         margin: 20px auto;
 
+    }
+
+    .menu_h2,
+    .data_h3 {
+        font-family: 'franklin-gothic-urw-comp', sans-serif;
+        font-style: normal;
+        font-weight: 400;
     }
 
     p {
@@ -89,6 +119,12 @@
         margin-right: auto;
 
     }
+
+    .data_kortbeskrivelse,
+    .data_pris {
+        font-family: 'PT Sans', sans-serif;
+    }
+
 </style>
 
 <body>
@@ -134,14 +170,74 @@
 
 
         </div>
-        <div id="retter">
+        <div id="menu">
 
+            <h2 class="menu_h2"></h2>
+            <main class="retter_container">
+                <section class="data_container"></section>
+            </main>
+            <template class="data_template">
+                <article class="retter">
+
+                    <h3 class="data_h3"></h3>
+                    <span class="data_kortbeskrivelse"></span><br>
+                    <span class="data_pris"></span><br>
+
+                </article>
+            </template>
+
+            <div id="kontakt"></div>
         </div>
-
-        <div id="kontakt"></div>
     </div>
 
-    <script></script>
+
+    <script>
+        let retter;
+        let dest = document.querySelector(".data_container");
+        document.addEventListener("DOMContentLoaded", hentJson);
+        madFilter = "alle";
+
+        document.querySelectorAll(".menu_item").forEach(knap => {
+            knap.addEventListener("click", filtrering)
+        });
+
+        function filtrering() {
+            dest.textContent = "";
+            madFilter = this.getAttribute("data_kategori");
+            visRetter();
+        }
+
+
+
+        async function hentJson() {
+            let myJson = await fetch("menu.json");
+            retter = await myJson.json();
+            visRetter();
+        }
+
+        function visRetter() {
+            let temp = document.querySelector(".data_template");
+            document.querySelector(".menu_h2").textContent = madFilter;
+            //løb personlisten igennem og lav en klon
+            retter.forEach(retter => {
+                if (retter.kategori == madFilter || madFilter == "alle") {
+
+
+                    let klon = temp.cloneNode(true).content;
+                    //indsæt data i klonen
+
+                    klon.querySelector(".data_h3").textContent = retter.navn;
+                    klon.querySelector(".data_kortbeskrivelse").textContent = retter.kortbeskrivelse;
+                    klon.querySelector(".data_pris").textContent = "Pris: " + retter.pris + ",-";
+
+
+                    //placer klon i DOM
+                    dest.appendChild(klon);
+                }
+            })
+        }
+
+    </script>
 </body>
 
 </html>
