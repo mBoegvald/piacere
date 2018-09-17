@@ -8,6 +8,11 @@
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 </head>
 <style>
+    :root {
+        --orange: #C3922E;
+        --sort: #1C1A18;
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -73,7 +78,7 @@
     .bar3 {
         width: 30px;
         height: 6px;
-        background-color: #C3922E;
+        background-color: var(--orange);
         margin: 4px 0;
         transition: 0.4s;
         border-radius: 30%;
@@ -181,8 +186,9 @@
 
     #menu_knapper {
         display: flex;
-        justify-content: space-between;
-        margin: 20px 5px;
+        justify-content: space-around;
+        max-width: 300px;
+        margin: 20px auto;
 
     }
 
@@ -201,7 +207,7 @@
         font-size: 20px;
         transition: 0.3s;
         font-family: 'franklin-gothic-urw-comp', sans-serif;
-        color: #C3922E;
+        color: var(--orange);
 
 
     }
@@ -212,7 +218,8 @@
 
 
     .menu_item:focus {
-        background: black;
+        background: var(--sort);
+        color: var(--orange);
     }
 
     .sticky {
