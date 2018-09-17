@@ -15,9 +15,9 @@
 
     .mobile_nav {
         display: flex;
-        position:absolute;
+        position: relative;
         z-index: 1;
-        top: 53vh;
+        top: 70%;
         width: 100%;
         flex-direction: column;
     }
@@ -26,15 +26,22 @@
         margin-left: auto;
         margin-right: auto;
         padding-left: 15px;
-        max-height: 200px;
+        opacity: 0;
+        transition: .3s;
 
     }
 
+    .open_nav {
+        opacity: 1;
+    }
 
     li {
         list-style: none;
         background-color: rgb(0, 0, 0);
         background-color: rgba(0, 0, 0, 0.9);
+        text-align: left;
+        padding: 10px;
+        margin-left: 40px;
 
     }
 
@@ -64,20 +71,18 @@
     .bar1,
     .bar2,
     .bar3 {
-        width: 40px;
-        height: 10px;
+        width: 30px;
+        height: 6px;
         background-color: #C3922E;
         margin: 4px 0;
         transition: 0.4s;
         border-radius: 30%;
     }
 
-    .bar2 {
-        background-color: #1C1A18;
-    }
+
 
     .change .bar1 {
-        transform: rotate(-45deg) translate(-9px, 12px);
+        transform: rotate(-45deg) translate(-5px, 6px);
     }
 
     .change .bar2 {
@@ -100,17 +105,18 @@
     }
 
     .hero_logo {
+        background: url(img/nytLogoStort.png);
+        background-size: cover;
         margin: auto;
-        width: 20vw;
-
+        width: 30vw;
+        height: 30vw;
+        position: relative;
+        top: 40%;
 
     }
 
-    .hero_logo img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-        padding-top: 40vh;
+    .container {
+        height: 100vh;
 
     }
 
@@ -186,60 +192,64 @@
         font-family: 'PT Sans', sans-serif;
         padding: 5px;
 
-
     }
 
 
 
     .mobile_nav_menu a {
-        padding: 10px 20
-        text-decoration: none;
+        padding: 10px 20 text-decoration: none;
         font-size: 20px;
         transition: 0.3s;
         font-family: 'franklin-gothic-urw-comp', sans-serif;
+        color: #C3922E;
 
 
     }
+
+    .mobile_nav_menu a:hover {
+        color: rgba(195, 146, 46, 0.63);
+    }
+
 
     .menu_item:focus {
         background: black;
     }
 
-
-
     .sticky {
         position: fixed;
         top: 0vh;
-        width: 100%;
+        max-width: 30vw;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 10px;
+        left: 33.5vw;
+        margin-top: 5px;
     }
 </style>
 
 <body>
-    <nav class="mobile_nav">
 
-        <button class="burger">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-        </button>
-
-
-
-        <ul class="mobile_nav_menu">
-            <li><a href="index.html#om">Om</a></li>
-            <li><a href="index.html#menu">Menu</a></li>
-            <li><a href="index.html#kontakt">Kontakt</a></li>
-        </ul>
-    </nav>
 
     <div class="wrapper">
         <div id="home" class="hero">
             <div class="container">
                 <div class="hero_logo">
-                    <img src="img/nytLogoStort.png" alt="">
+                    <nav class="mobile_nav">
+
+                        <button class="burger">
+                            <div class="bar1"></div>
+                            <div class="bar2"></div>
+                            <div class="bar3"></div>
+                        </button>
+
+
+
+                        <ul class="mobile_nav_menu">
+                            <li><a href="index.html#om">Om</a></li>
+                            <li><a href="index.html#menu">Menu</a></li>
+                            <li><a href="index.html#kontakt">Kontakt</a></li>
+                        </ul>
+                    </nav>
+
                 </div>
             </div>
         </div>
@@ -331,7 +341,7 @@
         }
 
 
-        let navbar = document.querySelector(".mobile_nav");
+        let navbar = document.querySelector(".hero_logo");
         let sticky = navbar.offsetTop;
 
         window.onscroll = function() {
@@ -347,7 +357,7 @@
         function toggleMenu() {
             document.querySelector("ul").classList.toggle("overlay");
             document.querySelector(".burger").classList.toggle("change");
-            document.querySelector(".mobile_nav_menu").classList.toggle("show");
+            document.querySelector(".mobile_nav_menu").classList.toggle("open_nav");
         }
     </script>
 </body>
