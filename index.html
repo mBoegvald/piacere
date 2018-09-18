@@ -12,11 +12,16 @@
     :root {
         --orange: #C3922E;
         --sort: #1C1A18;
+        --hvid: #DDCDB1;
     }
 
     * {
         margin: 0;
         padding: 0;
+    }
+
+    body {
+        background: var(--hvid);
     }
 
     .mobile_nav {
@@ -133,7 +138,7 @@
 
     article {
         padding: 1em 1em 1em 0;
-        background-color: white;
+        font-family: 'PT Sans', sans-serif;
 
 
     }
@@ -143,6 +148,7 @@
         margin-right: auto;
         display: grid;
         max-width: 300px;
+
     }
 
     .menu_h2 {
@@ -161,12 +167,14 @@
         max-width: 300px;
         margin: 60px auto 20px;
         transition: 1s;
+        color: var(--sort);
 
     }
 
     .menu_h2,
     .data_h3 {
         font-family: 'Belleza', sans-serif;
+        color: var(--sort);
 
     }
 
@@ -180,12 +188,15 @@
         max-width: 300px;
         margin-left: auto;
         margin-right: auto;
+        color: var(--sort);
+
 
     }
 
     .data_kortbeskrivelse,
     .data_pris {
         font-family: 'PT Sans', sans-serif;
+        color: var(--sort);
     }
 
     #menu_knapper {
@@ -235,6 +246,30 @@
         left: 33.5vw;
         margin-top: 5px;
     }
+
+    .kontakt_container {
+        max-width: 300px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+    .p_info a {
+        text-decoration: none;
+        font-weight: bold;
+        color: var(--sort);
+        transition: 0.3s;
+    }
+
+    .p_info a:hover {
+        color: #766e66;
+    }
+
+    #kontakt {
+        margin-bottom: 50px;
+    }
 </style>
 
 <body>
@@ -281,11 +316,11 @@
             <h1>Menukort</h1>
             <div id="menu_knapper">
                 <button class="menu_item" data_kategori="alle">Alle</button>
-                <button class="menu_item" data_kategori="forretter">Forretter</button>
-                <button class="menu_item" data_kategori="hovedretter">Hovedretter</button>
-                <button class="menu_item" data_kategori="desserter">Desserter</button>
-                <button class="menu_item" data_kategori="drikkevarer">Drikkevarer</button>
-                <button class="menu_item" data_kategori="sideorders">Sideorders</button>
+                <button class="menu_item" data_kategori="pasta">Pasta</button>
+                <button class="menu_item" data_kategori="pizza">Pizza</button>
+                <button class="menu_item" data_kategori="koed">Kød</button>
+                <button class="menu_item" data_kategori="dessert">Dessert</button>
+                <button class="menu_item" data_kategori="drikke">Drikke</button>
             </div>
 
 
@@ -296,14 +331,44 @@
                 <article class="retter">
 
                     <h3 class="data_h3"></h3>
-                    <span class="data_kortbeskrivelse"></span><br>
+                    <span class="data_beskrivelse"></span><br>
                     <span class="data_pris"></span><br>
 
                 </article>
             </template>
-
-            <div id="kontakt"></div>
         </div>
+        <div id="kontakt">
+            <div class="kontakt_container">
+                <div class="kontakt_info">
+                    <h1 class="h1_kontakt">
+                        Kontakt
+                    </h1>
+                    <p class="p_info">
+                        Café il Piacere
+                    </p>
+                    <p class="p_info">
+                        Gråbrødretorv 1, <br> 1154 København
+                    </p>
+                    <p class="p_info">
+                        Tlf: 27 89 08 55
+                    </p>
+                    <p class="p_info">
+                        <a href="mailto:mail@ilpiacere.dk">mail@ilpiacere.dk</a>
+                    </p>
+                </div>
+                <div class="kontakt_tider">
+                    <h1 class="h1_tider">
+                        Åbningstider
+                    </h1>
+                    <p class="p_tider">
+                        Åbent alle dage 11-23.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 
@@ -342,7 +407,7 @@
                     //indsæt data i klonen
 
                     klon.querySelector(".data_h3").textContent = retter.navn;
-                    klon.querySelector(".data_kortbeskrivelse").textContent = retter.kortbeskrivelse;
+                    klon.querySelector(".data_beskrivelse").textContent = retter.beskrivelse;
                     klon.querySelector(".data_pris").textContent = "Pris: " + retter.pris + ",-";
 
 
