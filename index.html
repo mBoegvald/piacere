@@ -3,23 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Café il piacere</title>
 
     <link href="https://fonts.googleapis.com/css?family=Belleza|PT+Sans" rel="stylesheet">
 
 </head>
 <style>
+    /*Globale variabler (farver)*/
     :root {
         --orange: #C3922E;
         --sort: #1C1A18;
         --hvid: #DDCDB1;
     }
 
+    /*nulstiller browser margin og padding*/
     * {
         margin: 0;
         padding: 0;
     }
 
+    /*Giver body min varible farve "hvid"*/
     body {
         background: var(--hvid);
     }
@@ -39,11 +42,14 @@
         padding-left: 15px;
         opacity: 0;
         transition: .3s;
+        display: none;
+
 
     }
 
     .open_nav {
         opacity: 1;
+        display: block;
     }
 
     li {
@@ -166,15 +172,16 @@
 
     }
 
-    .menu_h2,
     .data_h3 {
         font-family: 'Belleza', sans-serif;
         color: var(--sort);
-
+        cursor: pointer;
+        margin-bottom: 5px;
+        transition: .4s;
     }
 
-    .data_h3 {
-        margin-bottom: 5px;
+    .data_h3:hover {
+        color: #9d907f;
     }
 
     p {
@@ -208,13 +215,15 @@
         font-family: 'PT Sans', sans-serif;
         padding: 5px;
         transition: 0.4s;
+        cursor: pointer;
 
     }
 
 
 
     .mobile_nav_menu a {
-        padding: 10px 20 text-decoration: none;
+        padding: 10px 0;
+        text-decoration: none;
         font-size: 20px;
         transition: 0.3s;
         font-family: 'Belleza', sans-serif;
@@ -271,7 +280,7 @@
     }
 
     #modal {
-        background-color: rgba(0, 0, 0, .7);
+        background-color: rgba(0, 0, 0, .6);
         width: 100vw;
         height: 100vh;
         position: fixed;
@@ -279,13 +288,14 @@
         opacity: 0;
         pointer-events: none;
         transition: 1s;
+        top: 0;
     }
 
     #modal_content {
         width: 80%;
         height: 50%;
-        background-color: rgba(250, 250, 250, 0);
-        margin: 25% auto;
+        /*background-color: rgba(250, 250, 250, 0);*/
+        margin: 5vh auto;
 
     }
 
@@ -307,8 +317,14 @@
         width: 10%;
         height: 5%;
         cursor: pointer;
-        margin: 40% auto 0 auto;
-        background: #cccccc;
+        margin: 20vh auto 0 auto;
+        background: var(--hvid);
+        border: 0;
+        transition: .4s;
+    }
+
+    .close:hover {
+        background: #766e66;
     }
 
 
@@ -383,16 +399,34 @@
 
 <body>
 
+    <!--Modal-vindue container, skjult, men dukker op, når en ret bliver trykket på-->
     <section id="modal">
-        <button class="close">X</button>
+
+        <!--Knap til at lukke modal-vinduet-->
+        <button class="close">&#10006;</button>
+
+
+        <!--Container til modal-vinduets billede-->
+
         <div id="modal_content">
+
+            <!--tomt img-tag, til rettens billede-->
+
+
             <img class="modal_billede" src="" alt="">
         </div>
+
     </section>
 
     <div class="wrapper">
+
+        <!--Div som er container for logo og navbar. Har en baggrund, som er splashbilledet-->
+
         <div id="home" class="hero">
             <div class="container">
+
+                <!--Hero_logo har logoet som baggrund og mobile_nav indeni-->
+
                 <div class="hero_logo">
                     <nav class="mobile_nav">
 
@@ -415,6 +449,8 @@
             </div>
         </div>
 
+
+        <!--Div som indeholder afsnittet "om"-->
         <div id="om">
 
             <div class="tekst">
@@ -427,8 +463,13 @@
 
 
         </div>
+
+
+
         <div id="menu">
             <h1>Menukort</h1>
+
+            <!--Filtreringsknapperne til menu-afsnittet-->
             <div id="menu_knapper">
                 <button class="menu_item" data_kategori="alle">Alle</button>
                 <button class="menu_item" data_kategori="pasta">Pasta</button>
@@ -440,10 +481,18 @@
 
 
             <main class="retter_container">
+
+                <!--Container til visning af retterne-->
+
                 <section class="data_container"></section>
             </main>
+
+            <!--Template til visning af retter fra json-filen-->
             <template class="data_template">
                 <article class="retter">
+
+                    <!--Tomme tags, til indsætning af retternes navn, beskrivelse og pris-->
+
 
                     <h3 class="data_h3"></h3>
                     <span class="data_beskrivelse"></span><br>
@@ -452,7 +501,14 @@
                 </article>
             </template>
         </div>
+
+
+
+
         <div id="kontakt">
+
+            <!--Container til kontakt-->
+
             <div class="kontakt_container">
                 <div class="kontakt_info">
                     <h1 class="h1_kontakt">
@@ -488,15 +544,36 @@
 
 
     <script>
+        /*modal = containeren for modalvinduet*/
         let modal = document.querySelector("#modal");
+
+        /*retter bliver sat til at være en tom variabel, så den kan bruges senere i diverse funktioner*/
+
         let retter;
+
+        /*dest bliver sat til containeren for retterne, da det er "destinationen" vi gerne vil have dem i*/
+
         let dest = document.querySelector(".data_container");
-        document.addEventListener("DOMContentLoaded", hentJson);
+
+
+        /*definerer madFilter som alle, for at filtrere retterne ud fra deres kategorier i senere funktioner*/
+
         madFilter = "alle";
+
+        /*Når DOM-content er loaded, skal hentJson starte*/
+
+        document.addEventListener("DOMContentLoaded", hentJson);
+
+
+        /*laver en eventlistener til hver menu_item (knap) og starter filtrering*/
+
 
         document.querySelectorAll(".menu_item").forEach(knap => {
             knap.addEventListener("click", filtrering)
         });
+
+
+        /*tager værdien fra data_kategori og sætter ind som ny variabel i madfilter, hvorefter den kalder visRetter*/
 
         function filtrering() {
             dest.textContent = "";
@@ -505,12 +582,17 @@
         }
 
 
+        /*Indlæser json-fil og indsætter retterne i arrayet "retter"*/
 
         async function hentJson() {
             let myJson = await fetch("menu.json");
             retter = await myJson.json();
             visRetter();
         }
+
+        /*Viser alle retter (medmindre filterering har været kaldt, så viser den kun retter med samme data_kategori som madFilter)
+        Template til hver ret hentes fra template-tagget
+        .data_h3 får eventlistener som starter visModal*/
 
         function visRetter() {
             let temp = document.querySelector(".data_template");
@@ -536,6 +618,10 @@
             })
         }
 
+        /*Viser den valgte ret i et modalvindue
+        Tilføjer eventlistener til modalvinduets close-knap som starter skjulModal
+        Giver nav en display:none*/
+
         function visModal(retten) {
             let navbar = document.querySelector(".hero_logo");
             modal.classList.add("vis");
@@ -543,19 +629,32 @@
             modal.querySelector(".modal_billede").alt = "Foto af" + retten.navn;
 
             navbar.style.display = "none";
+            /*document.querySelector(".wrapper").style.background = "rgba(0, 0, 0, .6)";*/
+
+            document.querySelector(".hero").style.position = "absolute"; /**/
             modal.querySelector("button").addEventListener("click", skjulModal);
+            /*document.querySelector(".wrapper").style.transition = "all 1s";*/
 
 
         }
+
+        /*Fjerner modalvinduet og giver nav display:fixed igen*/
 
         function skjulModal() {
             modal.classList.remove("vis");
             navbar.style.display = "block";
+            /*  document.querySelector(".wrapper").style.background = "rgba(0, 0, 0, 0)";*/
+            document.querySelector(".hero").style.position = "relative";
+            /* document.querySelector(".wrapper").style.transition = "all 1s";*/
         }
 
-
+        /*navbar = logo*/
         let navbar = document.querySelector(".hero_logo");
+
+        /*sticky er = afstanden som navbar (logoet) har til toppen af siden*/
         let sticky = navbar.offsetTop;
+
+        /*Når man har scrollet så meget at afstanden i browseren er lig eller mindre afstanden som logoet havde til toppen fra start, får logoet en class som indeholder position:fixed, som får den til at følge med scroll*/
 
         window.onscroll = function() {
             if (window.pageYOffset >= sticky)
@@ -565,13 +664,37 @@
             }
         }
 
+        /*Tilføjer eventlistener til burgermenuen, så den både åbner og lukker*/
+
         document.querySelector(".burger").addEventListener("click", toggleMenu);
 
         function toggleMenu() {
-            document.querySelector("ul").classList.toggle("overlay");
             document.querySelector(".burger").classList.toggle("change");
-            document.querySelector(".mobile_nav_menu").classList.toggle("open_nav");
+
+
+            if (document.querySelector("ul").style.display === "none") {
+                setTimeout(navShow, 1000);
+                document.querySelector("ul").style.display = block;
+            } else {
+                document.querySelector("ul").classList.toggle("open_nav");
+                setTimeout(hideNav, 1000);
+
+            }
+
+            function navShow() {
+                document.querySelector("ul").classList.toggle("open_nav");
+
+            }
+
+            function hideNav() {
+                document.querySelector("ul").style.display = none;
+
+            }
         }
+        /*Eventlistener til logoet, som ruller siden tilbage til toppen*/
+        document.querySelector(".hero_logo").addEventListener("click", () => {
+            document.documentElement.scrollTop = 0;
+        });
     </script>
 </body>
 
